@@ -1,12 +1,8 @@
 /* 订单管理 */
-const Order = () => import('@/pages/order-manage')
-const OrderList = () => import('@/pages/order-manage/order-list')
-const ProductManage = () => import('@/pages/order-manage/product-manage')
-const ProductionList = () =>
-    import('@/pages/order-manage/product-manage/production-list')
-const ReviewManage = () =>
-    import('@/pages/order-manage/product-manage/review-manage')
-const ReturnGoods = () => import('@/pages/order-manage/return-goods')
+const Entitys = () => import('@/pages/entitys')
+const Point = () => import('@/pages/entitys/Point')
+
+const Polygon = () => import('@/pages/entitys/Polygon')
 
 /* 产品管理 */
 const Goods = () => import('@/pages/goods-manage')
@@ -20,58 +16,29 @@ const MenuManage = () => import('@/pages/permission/menu-manage')
 /* 需要权限判断的路由 */
 const dynamicRoutes = [
     {
-        path: '/order',
-        component: Order,
-        name: 'order-manage',
+        path: '/entitys',
+        component: Entitys,
+        name: 'entitys',
         meta: {
-            name: '订单管理',
+            name: '实体entity',
             icon: 'example'
         },
         children: [
             {
-                path: 'list',
-                name: 'order-list',
-                component: OrderList,
+                path: 'point',
+                name: 'point',
+                component: Point,
                 meta: {
-                    name: '订单列表',
+                    name: '点实体',
                     icon: 'table'
                 }
             },
             {
-                path: 'product',
-                name: 'product-manage',
-                component: ProductManage,
+                path: 'polygon',
+                name: 'polygon',
+                component: Polygon,
                 meta: {
-                    name: '生产管理',
-                    icon: 'user'
-                },
-                children: [
-                    {
-                        path: 'list',
-                        name: 'product-list',
-                        component: ProductionList,
-                        meta: {
-                            name: '生产列表',
-                            icon: 'table'
-                        }
-                    },
-                    {
-                        path: 'review',
-                        name: 'review-manage',
-                        component: ReviewManage,
-                        meta: {
-                            name: '审核管理',
-                            icon: 'eye'
-                        }
-                    }
-                ]
-            },
-            {
-                path: 'returnGoods',
-                name: 'return-goods',
-                component: ReturnGoods,
-                meta: {
-                    name: '退货管理',
+                    name: '面实体',
                     icon: 'nested'
                 }
             }

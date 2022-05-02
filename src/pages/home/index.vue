@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="contentDiv">
         <router-view></router-view>
         <MapDemo/>
     </div>
@@ -20,3 +20,9 @@ export default {
     }
 }
 </script>
+<style lang="scss">
+.contentDiv{
+    position: absolute;
+    height: 100%;
+}
+</style>
