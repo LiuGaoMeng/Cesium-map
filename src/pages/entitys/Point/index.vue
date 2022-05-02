@@ -56,8 +56,9 @@ export default {
                     color: Cesium.Color.RED,
                     pixelSize: 10, // 像素大小
                     outlineWidth: 2, // 边框大小
-                    scaleByDistance: new Cesium.NearFarScalar(1.5e2, 2.0, 1.5e7, 0.5), // 根据该点到相机的距离，获取或设置该点的近和远缩放属性。
-                    translucencyByDistance: new Cesium.NearFarScalar(1.5e2, 1.0, 1.5e7, 0.2), // 根据该点到相机的距离来获取或设置该点的近和远半透明属性。
+                    // scaleByDistance: new Cesium.NearFarScalar(1.5e2, 2.0, 1.5e7, 0.5), // 根据该点到相机的距离，获取或设置该点的近和远缩放属性。
+                    // translucencyByDistance: new Cesium.NearFarScalar(1.5e2, 1.0, 1.5e7, 0.2), // 根据该点到相机的距离来获取或设置该点的近和远半透明属性。
+                    distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10, 1.5e7), // 获取或设置条件，该条件指定将在距相机的距离显示此点
                     heightReference: Cesium.HeightReference.CCLAMP_TO_GROUND
 
                 }
