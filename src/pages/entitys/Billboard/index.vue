@@ -50,23 +50,39 @@ export default {
             this.viewer._cesiumWidget._creditContainer.style.display = 'none'
         },
         initObject() {
-            const point = this.viewer.entities.add({
-                id: 'poinr', // 对象的唯一标识符。如果未提供，则将生成GUID。
-                name: 'point', // 要显示给用户的可读名称。它不必是唯一的。
+            const billboard = this.viewer.entities.add({
+                id: 'billboard', // 对象的唯一标识符。如果未提供，则将生成GUID。
+                name: 'billboard', // 要显示给用户的可读名称。它不必是唯一的。
                 position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 0),
                 point: {
                     color: Cesium.Color.RED,
-                    pixelSize: 10, // 像素大小
-                    outlineWidth: 2, // 边框大小
-                    show: true, // 是否展示
-                    scaleByDistance: new Cesium.NearFarScalar(1.5e2, 2.0, 1.5e7, 0.5), // 根据该点到相机的距离，获取或设置该点的近和远缩放属性。
-                    translucencyByDistance: new Cesium.NearFarScalar(1.5e2, 1.0, 1.5e7, 0.2), // 根据该点到相机的距离来获取或设置该点的近和远半透明属性。
+                    pixelSize: 10
+                },
+                billboard: {
+                    image: '/image/billboard.jpg',
+                    width: 474, // 指定广告牌的宽度（以像素为单位），并覆盖原始尺寸。
+                    height: 300, // 指定广告牌的高度（以像素为单位），并覆盖原始尺寸。
+                    scale: 1, // 指定要应用于图像尺寸的比例
+                    sizeInMeters: true // 是否应以米为单位测量此广告牌的大小,随比例尺缩放
+                    // eyeOffset: new Cesium.Cartesian3(0.0, 1000.0, 0.0), // Cartesian3 属性，指定了眼睛偏移。三维世界坐标
+                    // horizontalOrigin: Cesium.HorizontalOrigin.RIGHT, // 相对于对象原点的水平位置。RIGHT 原点在对象的右侧, LEFT: 原点在对象的左侧 CENTER 原点在对象的水平中心
+                    // verticalOrigin: Cesium.VerticalOrigin.CENTER, // 相对于对象的原点的垂直位置 CENTER 原点位于 BASELINE 和 TOP 之间的垂直中心。 BOTTOM 原点在对象的底部。BASELINE 如果对象包含文本，则原点位于文本的基线，否则原点位于对象的底部。 TOP 原点在对象的顶部。
+                    // heightReference: Cesium.HeightReference.NONE, // 指定相对于高度的高度。NONE 位置绝对。CLAMP_TO_GROUND 位置固定在地形上。RELATIVE_TO_GROUND 位置高度是指地形上方的高度。
+                    // color: Cesium.Color.RED.withAlpha(0.5), // 指定图像的色调 颜色
+                    // rotation: Cesium.Math.PI_OVER_FOUR, // 指定关于alignedAxis的旋转角度。
+                    // alignedAxis: Cesium.Cartesian3.UNIT_X, // UNIT_X X轴 UNIT_Y Y 轴  UNIT_Z Z 轴
+                    // pixelOffset: new Cesium.Cartesian2(0.0, 100.0), // Cartesian2 属性，用于指定像素偏移,二维屏幕坐标。随缩放一直保存偏移
+                    // pixelOffsetScaleByDistance: new Cesium.NearFarScalar(1.0, 1.0, 20000, 10) // 根据距相机的距离来设置pixelOffset(像素偏移)。 必须设置 pixelOffset
+                    // distanceDisplayCondition: new Cesium.DistanceDisplayCondition(0.0, 10000.0)
+                    // scaleByDistance: new Cesium.NearFarScalar(1.5e2, 2.0, 1.5e7, 0.1) // 根据该点到相机的距离，获取或设置该点的近和远缩放属性。
+                    // translucencyByDistance: new Cesium.NearFarScalar(1.5e2, 1.0, 1.5e7, 0.2) // 根据该点到相机的距离来获取或设置该点的近和远半透明属性。
                     // distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10, 1.5e7), // 获取或设置条件，该条件指定将在距相机的距离显示此点
-                    heightReference: Cesium.HeightReference.CCLAMP_TO_GROUND
+                    // imageSubRegion: new Cesium.BoundingRectangle(50, 50, 50, 50) // 定义了要用于广告牌的图像的子区域，而不是整个图像，而是从左下角开始以像素为单位。
+                    // disableDepthTestDistance: Number.POSITIVE_INFINITY// 要禁用深度测试的距离相机的距离。POSITIVE_INFINITY无穷大，不会应用深度测试，0始终应用深度测试。应用深度测试避免地形的遮挡。
 
                 }
             })
-            this.viewer.trackedEntity = point
+            this.viewer.trackedEntity = billboard
         }
     }
 }

@@ -1,7 +1,7 @@
 /* 订单管理 */
 const Entitys = () => import('@/pages/entitys')
 const Point = () => import('@/pages/entitys/Point')
-
+const Billboard = () => import('@/pages/entitys/Billboard')
 const Polygon = () => import('@/pages/entitys/Polygon')
 
 /* 产品管理 */
@@ -30,6 +30,15 @@ const dynamicRoutes = [
                 component: Point,
                 meta: {
                     name: '点实体',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'billboard',
+                name: 'billboard',
+                component: Billboard,
+                meta: {
+                    name: '广告牌',
                     icon: 'table'
                 }
             },
