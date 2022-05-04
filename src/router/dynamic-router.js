@@ -2,6 +2,10 @@
 const Entitys = () => import('@/pages/entitys')
 const Point = () => import('@/pages/entitys/Point')
 const Billboard = () => import('@/pages/entitys/Billboard')
+const Box = () => import('@/pages/entitys/Box')
+const Corridor = () => import('@/pages/entitys/Corridor')
+const Cylinder = () => import('@/pages/entitys/Cylinder')
+const Ellipse = () => import('@/pages/entitys/Ellipse')
 const Polygon = () => import('@/pages/entitys/Polygon')
 
 /* 产品管理 */
@@ -29,7 +33,7 @@ const dynamicRoutes = [
                 name: 'point',
                 component: Point,
                 meta: {
-                    name: '点实体',
+                    name: '点',
                     icon: 'table'
                 }
             },
@@ -43,12 +47,48 @@ const dynamicRoutes = [
                 }
             },
             {
+                path: 'box',
+                name: 'box',
+                component: Box,
+                meta: {
+                    name: '盒子',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'Corridor',
+                name: 'Corridor',
+                component: Corridor,
+                meta: {
+                    name: '走廊',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'Cylinder',
+                name: 'Cylinder',
+                component: Cylinder,
+                meta: {
+                    name: '圆/椭圆',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'Ellipse',
+                name: 'Ellipse',
+                component: Ellipse,
+                meta: {
+                    name: '球体/椭圆',
+                    icon: 'table'
+                }
+            },
+            {
                 path: 'polygon',
                 name: 'polygon',
                 component: Polygon,
                 meta: {
                     name: '面实体',
-                    icon: 'nested'
+                    icon: 'table'
                 }
             }
         ]

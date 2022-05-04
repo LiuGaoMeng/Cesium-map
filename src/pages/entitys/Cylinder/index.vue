@@ -50,23 +50,29 @@ export default {
             this.viewer._cesiumWidget._creditContainer.style.display = 'none'
         },
         initObject() {
-            const point = this.viewer.entities.add({
-                id: 'point', // 对象的唯一标识符。如果未提供，则将生成GUID。
-                name: 'point', // 要显示给用户的可读名称。它不必是唯一的。
-                position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 0),
-                point: {
-                    color: Cesium.Color.RED,
-                    pixelSize: 10, // 像素大小
-                    outlineWidth: 2, // 边框大小
+            const box = this.viewer.entities.add({
+                id: 'cylinder', // 对象的唯一标识符。如果未提供，则将生成GUID。
+                name: 'cylinder', // 要显示给用户的可读名称。它不必是唯一的。
+                position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 10000),
+                cylinder: {
+                    topRadius: 100, // 顶部半径
+                    bottomRadius: 100, // 底部半径
+                    length: 100, // 高度
+                    numberOfVerticalLines: 100, // 沿轮廓的周长绘制的垂直线的数量。
+                    slices: 100, // 圆柱周围的边缘点数量。越大圆柱越圆
+                    fill: true, // 布尔属性，指定是否用提供的材料填充该框。
+                    material: Cesium.Color.RED, // 填充颜色
                     show: true, // 是否展示
-                    scaleByDistance: new Cesium.NearFarScalar(1.5e2, 2.0, 1.5e7, 0.5), // 根据该点到相机的距离，获取或设置该点的近和远缩放属性。
-                    translucencyByDistance: new Cesium.NearFarScalar(1.5e2, 1.0, 1.5e7, 0.2), // 根据该点到相机的距离来获取或设置该点的近和远半透明属性。
-                    // distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10, 1.5e7), // 获取或设置条件，该条件指定将在距相机的距离显示此点
+                    outline: true, // 布尔型属性，用于指定该框是否已概述。
+                    outlineColor: Cesium.Color.YELLOW, // 指定轮廓的 颜色 。
+                    outlineWidth: 5, // 指定轮廓的宽度。
+                    shadows: Cesium.ShadowMode.ENABLED, // 指定框是投射还是接收光源的阴影。 DISABLED ENBALE
+                    distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 200000.0),
                     heightReference: Cesium.HeightReference.CCLAMP_TO_GROUND
 
                 }
             })
-            this.viewer.trackedEntity = point
+            this.viewer.trackedEntity = box
         }
     }
 }
