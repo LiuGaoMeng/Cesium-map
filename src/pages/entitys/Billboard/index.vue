@@ -53,7 +53,7 @@ export default {
             const billboard = this.viewer.entities.add({
                 id: 'billboard', // 对象的唯一标识符。如果未提供，则将生成GUID。
                 name: 'billboard', // 要显示给用户的可读名称。它不必是唯一的。
-                position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 0),
+                position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 150),
                 point: {
                     color: Cesium.Color.RED,
                     pixelSize: 10

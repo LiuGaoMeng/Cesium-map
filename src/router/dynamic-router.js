@@ -69,7 +69,7 @@ const dynamicRoutes = [
                 name: 'Cylinder',
                 component: Cylinder,
                 meta: {
-                    name: '圆/椭圆',
+                    name: '圆柱体',
                     icon: 'table'
                 }
             },
