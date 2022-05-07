@@ -6,6 +6,9 @@ const Box = () => import('@/pages/entitys/Box')
 const Corridor = () => import('@/pages/entitys/Corridor')
 const Cylinder = () => import('@/pages/entitys/Cylinder')
 const Ellipse = () => import('@/pages/entitys/Ellipse')
+const Ellipsoid = () => import('@/pages/entitys/Ellipsoid')
+const Label = () => import('@/pages/entitys/Label')
+const Model = () => import('@/pages/entitys/Model')
 const Polygon = () => import('@/pages/entitys/Polygon')
 
 /* 产品管理 */
@@ -79,6 +82,33 @@ const dynamicRoutes = [
                 component: Ellipse,
                 meta: {
                     name: '球体/椭圆',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'Ellipsoid',
+                name: 'Ellipsoid',
+                component: Ellipsoid,
+                meta: {
+                    name: '椭球/球体',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'Label',
+                name: 'Label',
+                component: Label,
+                meta: {
+                    name: '标签',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'Model',
+                name: 'Model',
+                component: Model,
+                meta: {
+                    name: '模型',
                     icon: 'table'
                 }
             },
