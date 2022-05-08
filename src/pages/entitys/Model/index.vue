@@ -8,6 +8,7 @@ export default {
     data() {
         return {
             viewer: null,
+            scene: null,
             targetY: 0.0,
             planeEntities: []
         }
@@ -50,6 +51,7 @@ export default {
                 fullsccreennElement: document.body, // 全屏渲染的HTML元素
                 showRenderLoopErrors: false // 如果设置为true，将在一个HTML面板显示错误信息)
             })
+            this.scene = this.viewer.scene
             this.viewer._cesiumWidget._creditContainer.style.display = 'none'
         },
         initObject() {
@@ -100,11 +102,10 @@ export default {
                 }
             })
             function createPlaneUpdateFunction(plane) {
-                debugger
-                return function () {
-                    plane.distance = this.targetY
-                    return plane
-                }
+                // return function () {
+                plane.distance = this.targetY
+                return plane
+                // }
             }
             debugger
             for (let i = 0; i < clippingPlanes.length; ++i) {
@@ -115,11 +116,11 @@ export default {
                     plane: {
                         dimensions: new Cesium.Cartesian2(100.0, 100.0),
                         material: Cesium.Color.WHITE.withAlpha(0.1),
-                        // plane: new Cesium.CallbackProperty(
-                        //     createPlaneUpdateFunction(plane),
-                        //     false
-                        // ),
-                        plane: new Cesium.Plane(Cesium.Cartesian3.UNIT_Z, 0.0),
+                        plane: new Cesium.CallbackProperty(
+                            this.createPlaneUpdateFunction(plane),
+                            false
+                        ),
+                        // plane: new Cesium.Plane(Cesium.Cartesian3.UNIT_Z, 0.0),
                         fill: true,
                         outline: true,
                         outlineColor: Cesium.Color.WHITE
@@ -134,8 +135,8 @@ export default {
             const downHandler = new Cesium.ScreenSpaceEventHandler(
                 this.viewer.scene.canvas
             )
-            downHandler.setInputAction(movement => {
-                const pickedObject = scene.pick(movement.position)
+            downHandler.setInputAction((movement) => {
+                const pickedObject = this.scene.pick(movement.position)
                 if (
                     Cesium.defined(pickedObject) &&
                     Cesium.defined(pickedObject.id) &&
@@ -144,32 +145,39 @@ export default {
                     selectedPlane = pickedObject.id.plane
                     selectedPlane.material = Cesium.Color.WHITE.withAlpha(0.05)
                     selectedPlane.outlineColor = Cesium.Color.WHITE
-                    scene.screenSpaceCameraController.enableInputs = false
+                    this.scene.screenSpaceCameraController.enableInputs = false
                 }
             }, Cesium.ScreenSpaceEventType.LEFT_DOWN)
 
             const upHandler = new Cesium.ScreenSpaceEventHandler(
                 this.viewer.scene.canvas
             )
-            upHandler.setInputAction(movement => {
+            upHandler.setInputAction((movement) => {
                 if (Cesium.defined(selectedPlane)) {
                     selectedPlane.material = Cesium.Color.WHITE.withAlpha(0.1)
                     selectedPlane.outlineColor = Cesium.Color.WHITE
                     selectedPlane = undefined
                 }
 
-                scene.screenSpaceCameraController.enableInputs = true
+                this.scene.screenSpaceCameraController.enableInputs = true
             }, Cesium.ScreenSpaceEventType.LEFT_UP)
             const moveHandler = new Cesium.ScreenSpaceEventHandler(
                 this.viewer.scene.canvas
             )
-            moveHandler.setInputAction(movement => {
+            moveHandler.setInputAction((movement) => {
                 if (Cesium.defined(selectedPlane)) {
                     const deltaY =
                         movement.startPosition.y - movement.endPosition.y
                     this.targetY += deltaY
                 }
             }, Cesium.ScreenSpaceEventType.MOUSE_MOVE)
+        },
+        createPlaneUpdateFunction(plane) {
+            return () => {
+                debugger
+                plane.distance = this.targetY
+                return plane
+            }
         }
     }
 }
