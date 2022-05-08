@@ -51,15 +51,19 @@ export default {
                 showRenderLoopErrors: false // 如果设置为true，将在一个HTML面板显示错误信息)
             })
             this.viewer._cesiumWidget._creditContainer.style.display = 'none'
+
+            this.viewer.scene.globe.enableLighting = true
+
+            this.viewer.scene.globe.depthTestAgainstTerrain = true
         },
         initObject() {
             this.startTime = Cesium.JulianDate.now()
             this.stopTime = Cesium.JulianDate.addSeconds(this.startTime, 360, new Cesium.JulianDate())
             this.viewer.clock.startTime = this.startTime.clone() // 设置时钟开始时间
             this.viewer.clock.stopTime = this.stopTime.clone() // 设置时钟停止时间
-            this.viewer.clock.currentTime = this.startTime.clone()
+            this.viewer.clock.currentTime = this.startTime.clone() // 设置时钟当前时间
             this.viewer.clock.clockRange = Cesium.ClockRange.LOOP_STOP// 循环执行，到达终止时间，重新从起点开始
-            this.viewer.clock.multiplier = 5
+            this.viewer.clock.multiplier = 5 // 时间速率，数字越大时间过的越快
             this.viewer.timeline.zoomTo(this.startTime, this.stopTime)
             let position = this.computePath(-107.0, 40)
             const path = this.viewer.entities.add({
@@ -67,13 +71,20 @@ export default {
                 name: 'path', // 要显示给用户的可读名称。它不必是唯一的。
                 position: position,
                 orientation: new Cesium.VelocityOrientationProperty(position),
+                availability: new Cesium.TimeIntervalCollection([new Cesium.TimeInterval({ // 和时间轴关联
+                    start: this.startTime,
+                    stop: this.stopTime
+                })]),
                 model: {
                     uri: '/model/Cesium_Air.glb'
                 },
                 path: {
                     leadTime: 0, // 指定要显示的对象前面的秒数。
                     trailTime: 1, // 指定要显示的对象后面的秒数。
-                    material: Cesium.Color.RED, // 填充颜色
+                    material: new Cesium.PolylineGlowMaterialProperty({ // 发光线
+                        glowPower: 1,
+                        color: Cesium.Color.ORANGE
+                    }),
                     show: true, // 是否展示
                     width: 5, // 宽度。像素
                     resolution: 10, // 指定在对该位置进行采样时要移动的最大秒数。
