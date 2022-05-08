@@ -9,6 +9,8 @@ const Ellipse = () => import('@/pages/entitys/Ellipse')
 const Ellipsoid = () => import('@/pages/entitys/Ellipsoid')
 const Label = () => import('@/pages/entitys/Label')
 const Model = () => import('@/pages/entitys/Model')
+const Path = () => import('@/pages/entitys/Path')
+
 const Polygon = () => import('@/pages/entitys/Polygon')
 
 /* 产品管理 */
@@ -109,6 +111,15 @@ const dynamicRoutes = [
                 component: Model,
                 meta: {
                     name: '模型',
+                    icon: 'table'
+                }
+            },
+            {
+                path: 'Path',
+                name: 'Path',
+                component: Path,
+                meta: {
+                    name: '路径',
                     icon: 'table'
                 }
             },
