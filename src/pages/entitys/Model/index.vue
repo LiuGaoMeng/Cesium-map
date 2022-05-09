@@ -107,7 +107,6 @@ export default {
                 return plane
                 // }
             }
-            debugger
             for (let i = 0; i < clippingPlanes.length; ++i) {
                 let plane = clippingPlanes.get(i)
                 const planeEntity = this.viewer.entities.add({
@@ -174,7 +173,6 @@ export default {
         },
         createPlaneUpdateFunction(plane) {
             return () => {
-                debugger
                 plane.distance = this.targetY
                 return plane
             }

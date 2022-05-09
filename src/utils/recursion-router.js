@@ -6,7 +6,6 @@
  */
 
 export function recursionRouter(userRouter = [], allRouter = []) {
-    debugger
     var realRoutes = allRouter
         .filter(item => userRouter.includes(item.name))
         .map(item => ({

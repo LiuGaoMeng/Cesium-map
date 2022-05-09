@@ -55,6 +55,7 @@ export default {
             this.viewer.scene.globe.enableLighting = true
 
             this.viewer.scene.globe.depthTestAgainstTerrain = true
+            this.viewer.scene.logarithmicDepthBuffer = false
         },
         initObject() {
             this.startTime = Cesium.JulianDate.now()
@@ -87,8 +88,8 @@ export default {
                     }),
                     show: true, // 是否展示
                     width: 5, // 宽度。像素
-                    resolution: 10, // 指定在对该位置进行采样时要移动的最大秒数。
-                    distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 200000.0)
+                    resolution: 10 // 指定在对该位置进行采样时要移动的最大秒数。
+                    // distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 200000.0)
 
                 }
             })
