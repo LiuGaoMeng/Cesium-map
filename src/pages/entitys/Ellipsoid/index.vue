@@ -29,7 +29,7 @@ export default {
                     // 图像图层提供者，仅baseLayerPicker设为false有意义
                     url: 'https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer?f=jsapi'
                 }),
-                terrainProvider: new Cesium.EllipsoidTerrainProvider(), // 地形图层提供者，仅baseLayerPicker设为false有意义
+                terrainProvider: Cesium.createWorldTerrain(), // 地形图层提供者，仅baseLayerPicker设为false有意义
                 fullscreenButton: false, // 是否显示全屏按钮，右下角全屏选择按钮
                 geocoder: false, // 是否显示geocoder小器件，右上角查询按钮
                 sceneModePicker: false, // 是否显示3D/2D选择器，右上角按钮

@@ -50,12 +50,13 @@ export default {
             this.viewer._cesiumWidget._creditContainer.style.display = 'none'
         },
         initObject() {
-            const box = this.viewer.entities.add({
-                id: 'box', // 对象的唯一标识符。如果未提供，则将生成GUID。
-                name: 'box', // 要显示给用户的可读名称。它不必是唯一的。
-                position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 10000),
-                box: {
+            const plane = this.viewer.entities.add({
+                id: 'plane', // 对象的唯一标识符。如果未提供，则将生成GUID。
+                name: 'plane', // 要显示给用户的可读名称。它不必是唯一的。
+                position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 10000.0),
+                plane: {
                     dimensions: new Cesium.Cartesian3(20000, 20000, 20000), // Cartesian3 属性，用于指定框的长度，宽度和高度。
+                    plane: new Cesium.Plane(Cesium.Cartesian3.UNIT_Z, -10000.0), // 指定平面的法线和距离。 distance为正距离缩小，为负距离增加
                     fill: true, // 布尔属性，指定是否用提供的材料填充该框。
                     material: Cesium.Color.RED, // 填充颜色
                     show: true, // 是否展示
@@ -63,12 +64,44 @@ export default {
                     outlineColor: Cesium.Color.YELLOW, // 指定轮廓的 颜色 。
                     outlineWidth: 5, // 指定轮廓的宽度。
                     shadows: Cesium.ShadowMode.ENABLED, // 指定框是投射还是接收光源的阴影。 DISABLED ENBALE
-                    distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 200000.0),
-                    heightReference: Cesium.HeightReference.CCLAMP_TO_GROUND
-
+                    distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 200000.0)
                 }
             })
-            this.viewer.trackedEntity = box
+            this.viewer.entities.add({
+                id: 'plane2', // 对象的唯一标识符。如果未提供，则将生成GUID。
+                name: 'plane', // 要显示给用户的可读名称。它不必是唯一的。
+                position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 10000.0),
+                plane: {
+                    dimensions: new Cesium.Cartesian3(20000, 20000, 20000), // Cartesian3 属性，用于指定框的长度，宽度和高度。
+                    plane: new Cesium.Plane(Cesium.Cartesian3.UNIT_Z, 0), // 指定平面的法线和距离。
+                    fill: true, // 布尔属性，指定是否用提供的材料填充该框。
+                    material: Cesium.Color.BLUE, // 填充颜色
+                    show: true, // 是否展示
+                    outline: true, // 布尔型属性，用于指定该框是否已概述。
+                    outlineColor: Cesium.Color.YELLOW, // 指定轮廓的 颜色 。
+                    outlineWidth: 5, // 指定轮廓的宽度。
+                    shadows: Cesium.ShadowMode.ENABLED, // 指定框是投射还是接收光源的阴影。 DISABLED ENBALE
+                    distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 200000.0)
+                }
+            })
+            this.viewer.entities.add({
+                id: 'plane3', // 对象的唯一标识符。如果未提供，则将生成GUID。
+                name: 'plane', // 要显示给用户的可读名称。它不必是唯一的。
+                position: Cesium.Cartesian3.fromDegrees(-107.0, 40, 10000.0),
+                plane: {
+                    dimensions: new Cesium.Cartesian3(20000, 20000, 20000), // Cartesian3 属性，用于指定框的长度，宽度和高度。
+                    plane: new Cesium.Plane(Cesium.Cartesian3.UNIT_Z, 10000.0), // 指定平面的法线和距离。
+                    fill: true, // 布尔属性，指定是否用提供的材料填充该框。
+                    material: Cesium.Color.GREEN, // 填充颜色
+                    show: true, // 是否展示
+                    outline: true, // 布尔型属性，用于指定该框是否已概述。
+                    outlineColor: Cesium.Color.YELLOW, // 指定轮廓的 颜色 。
+                    outlineWidth: 5, // 指定轮廓的宽度。
+                    shadows: Cesium.ShadowMode.ENABLED, // 指定框是投射还是接收光源的阴影。 DISABLED ENBALE
+                    distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 200000.0)
+                }
+            })
+            this.viewer.trackedEntity = plane
         }
     }
 }

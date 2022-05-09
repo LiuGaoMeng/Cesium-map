@@ -29,7 +29,7 @@ export default {
                     // 图像图层提供者，仅baseLayerPicker设为false有意义
                     url: 'https://server.arcgisonline.com/arcgis/rest/services/World_Imagery/MapServer?f=jsapi'
                 }),
-                terrainProvider: Cesium.createWorldTerrain(), // 地形图层提供者，仅baseLayerPicker设为false有意义
+                terrainProvider: Cesium.createWorldTerrain(), // 地形图层提供者，仅baseLayerPicker设为false有意义, // 地形图层提供者，仅baseLayerPicker设为false有意义
                 fullscreenButton: false, // 是否显示全屏按钮，右下角全屏选择按钮
                 geocoder: false, // 是否显示geocoder小器件，右上角查询按钮
                 sceneModePicker: false, // 是否显示3D/2D选择器，右上角按钮
@@ -50,37 +50,53 @@ export default {
             this.viewer._cesiumWidget._creditContainer.style.display = 'none'
         },
         initObject() {
-            const corridor = this.viewer.entities.add({
-                id: 'corridor', // 对象的唯一标识符。如果未提供，则将生成GUID。
-                name: 'corridor', // 要显示给用户的可读名称。它不必是唯一的。
-                corridor: {
-                    positions: Cesium.Cartesian3.fromDegreesArray([ // 走廊走向数据
-                        -100, 40,
-                        -105, 40,
-                        -105, 35,
-                        -110, 35,
-                        -110, 40,
-                        -100, 45
-                    ]),
-                    width: 100000, // 宽度必须设置
-                    height: 40000, // 走廊相对于椭球表面的高度。
-                    fill: true, // 布尔属性，指定是否用提供的材料填充该框。
-                    material: Cesium.Color.RED, // 边框大小
-                    extrudedHeight: 80000.0, // 走廊的凸出面相对于椭球面的高度。拉伸高度=extrudedHeight-height
-                    cornerType: Cesium.CornerType.ROUNDED,
-                    classificationType: Cesium.ClassificationType.BOTH, // 用来描述是否只贴地形（ClassificationType.TERRAIN）,只贴3dtiles(ClassificationType.CESIUM_3D_TILE), 俩者都贴ClassificationType.BOTH
-                    granularity: Cesium.Math.RADIANS_PER_DEGREE, // 指定每个经纬度之间的距离
-                    zIndex: 0 // 层级，当未定义height和extrudedHeight且道路为静态时有效
-                    // show: true, // 是否展示
-                    // outline: true, // 布尔型属性，用于指定该框是否已概述。
-                    // outlineColor: Cesium.Color.YELLOW, // 指定轮廓的 颜色 。
-                    // outlineWidth: 5, // 指定轮廓的宽度。
+            const polyline = this.viewer.entities.add({
+                id: 'polyline', // 对象的唯一标识符。如果未提供，则将生成GUID。
+                name: 'polyline', // 要显示给用户的可读名称。它不必是唯一的。
+                polyline: {
+                    positions: Cesium.Cartesian3.fromDegreesArray([-75, 35, -125, 35]), // 指定定义线条的 位置的数组。
+                    material: Cesium.Color.RED, // 填充颜色
+                    show: true, // 是否展示
+                    width: 5,
+                    depthFailMaterial: Cesium.Color.GREEN,
                     // shadows: Cesium.ShadowMode.ENABLED, // 指定框是投射还是接收光源的阴影。 DISABLED ENBALE
-                    // distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 200000.0)
+                    // distanceDisplayCondition: new Cesium.DistanceDisplayCondition(10.0, 20000000.0)
+                    // heightReference: Cesium.HeightReference.CCLAMP_TO_GROUND
+                    arcType: Cesium.ArcType.GEODESIC // 划线方式不一样，圆弧样式不同。 NONE 与椭圆表面不符的直线。GEODESIC 遵循测地路径。 RHUMB 遵循大黄蜂或恶魔般的道路。
 
                 }
             })
-            this.viewer.trackedEntity = corridor
+            this.viewer.entities.add({
+                polyline: {
+                    positions: Cesium.Cartesian3.fromDegreesArray([-75, 37, -125, 37]),
+                    width: 10,
+                    material: new Cesium.PolylineGlowMaterialProperty({ // 发光材质
+                        glowPower: 0.5, // 指定发光强度，以总线宽的百分比表示。
+                        taperPower: 1, // 指定渐缩效果的强度，以总行长的百分比表示。如果为1.0或更高，则不使用锥度效果。
+                        color: Cesium.Color.CORNFLOWERBLUE
+                    })
+                }
+            })
+            this.viewer.entities.add({
+                polyline: {
+                    positions: Cesium.Cartesian3.fromDegreesArrayHeights([
+                        -75,
+                        39,
+                        250000,
+                        -125,
+                        39,
+                        250000
+                    ]),
+                    width: 5,
+                    clampToGround: false, // 是否应将折线固定在地面上。
+                    material: new Cesium.PolylineOutlineMaterialProperty({
+                        color: Cesium.Color.ORANGE,
+                        outlineWidth: 2,
+                        outlineColor: Cesium.Color.BLACK
+                    })
+                }
+            })
+            this.viewer.trackedEntity = polyline
         }
     }
 }

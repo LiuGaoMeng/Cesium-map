@@ -55,7 +55,7 @@ export default {
             this.viewer._cesiumWidget._creditContainer.style.display = 'none'
         },
         initObject() {
-            const position = Cesium.Cartesian3.fromDegrees(-107.0, 40, 10000)
+            const position = Cesium.Cartesian3.fromDegrees(-107.0, 40, 100000)
             const heading = Cesium.Math.toRadians(135)
             const pitch = 0
             const roll = 0
@@ -96,17 +96,12 @@ export default {
                     // colorBlendAmount: 0.1 // 用于指定 colorBlendMode 为 MIX 时的颜色强度。值0.0会产生模型的着色，而值1.0会导致纯色，介于两者之间的任何值都会导致两者混合。
                     imageBasedLightingFactor: new Cesium.Cartesian2(1.0, 1.0), // 定基于漫反射和镜面反射的图像照明的贡献。
                     // lightColor: Cesium.Color.BLUE, // 为模型着色时指定浅色的属性。如果 undefined ，则使用场景的浅色。
-                    distanceDisplayCondition:
-                        new Cesium.DistanceDisplayCondition(10, 20000),
+                    // distanceDisplayCondition:
+                    //     new Cesium.DistanceDisplayCondition(10, 20000),
                     clippingPlanes: clippingPlanes
                 }
             })
-            function createPlaneUpdateFunction(plane) {
-                // return function () {
-                plane.distance = this.targetY
-                return plane
-                // }
-            }
+
             for (let i = 0; i < clippingPlanes.length; ++i) {
                 let plane = clippingPlanes.get(i)
                 const planeEntity = this.viewer.entities.add({
