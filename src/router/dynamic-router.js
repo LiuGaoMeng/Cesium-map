@@ -15,6 +15,7 @@ const Polygon = () => import('@/pages/entitys/Polygon')
 const Polyline = () => import('@/pages/entitys/Polyline')
 const PolylineVolume = () => import('@/pages/entitys/PolylineVolume')
 const Rectangle = () => import('@/pages/entitys/Rectangle')
+const EntityCluster = () => import('@/pages/entitys/EntityCluster')
 /* 产品管理 */
 const Goods = () => import('@/pages/goods-manage')
 const GoodsList = () => import('@/pages/goods-manage/goods-list')
@@ -165,6 +166,15 @@ const dynamicRoutes = [{
         component: Rectangle,
         meta: {
             name: '矩形',
+            icon: 'table'
+        }
+    },
+    {
+        path: 'etityCluster ',
+        name: 'entityCluster ',
+        component: EntityCluster,
+        meta: {
+            name: '聚合',
             icon: 'table'
         }
     }
