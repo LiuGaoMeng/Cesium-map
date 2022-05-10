@@ -52,9 +52,9 @@ export default {
         },
         initData(){
             Cesium.KmlDataSource.load('/data/facilities.kml', {
-  camera: this.viewer.scene.camera,
-  canvas: this.viewer.scene.canvas,
-}).then(dataSource=>{
+                camera: this.viewer.scene.camera,
+                canvas: this.viewer.scene.canvas,
+            }).then(dataSource=>{
                 debugger
 
             })
