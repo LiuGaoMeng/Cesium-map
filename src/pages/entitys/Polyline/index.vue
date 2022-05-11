@@ -98,6 +98,9 @@ export default {
             })
             this.viewer.trackedEntity = polyline
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

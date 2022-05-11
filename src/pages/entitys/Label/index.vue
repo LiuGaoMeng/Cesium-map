@@ -76,6 +76,9 @@ export default {
             })
             this.viewer.trackedEntity = label
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

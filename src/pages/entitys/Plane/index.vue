@@ -103,6 +103,9 @@ export default {
             })
             this.viewer.trackedEntity = plane
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

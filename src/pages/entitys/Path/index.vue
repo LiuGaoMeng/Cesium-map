@@ -104,6 +104,9 @@ export default {
             }
             return property
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

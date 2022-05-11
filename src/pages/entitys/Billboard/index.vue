@@ -84,6 +84,9 @@ export default {
             })
             this.viewer.trackedEntity = billboard
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

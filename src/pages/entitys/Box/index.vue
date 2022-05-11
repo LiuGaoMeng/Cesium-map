@@ -70,6 +70,9 @@ export default {
             })
             this.viewer.trackedEntity = box
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

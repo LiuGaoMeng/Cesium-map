@@ -147,6 +147,9 @@ export default {
             }
             return positions
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

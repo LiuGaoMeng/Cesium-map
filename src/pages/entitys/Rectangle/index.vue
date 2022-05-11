@@ -129,6 +129,9 @@ export default {
                 return rotation
             }
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 </script>

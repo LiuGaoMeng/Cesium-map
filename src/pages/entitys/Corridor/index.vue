@@ -82,6 +82,9 @@ export default {
             })
             this.viewer.trackedEntity = corridor
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

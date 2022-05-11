@@ -172,6 +172,9 @@ export default {
                 return plane
             }
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 </script>

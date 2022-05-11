@@ -12,7 +12,7 @@ export default {
     },
     mounted() {
         this.initMap()
-        // this.initData()
+
         // this.initObject()
     },
     methods: {
@@ -48,21 +48,21 @@ export default {
                 showRenderLoopErrors: false // 如果设置为true，将在一个HTML面板显示错误信息
             })
             this.viewer._cesiumWidget._creditContainer.style.display = 'none'
+            this.initData()
         },
         initData() {
-            Cesium.KmlDataSource.load('/data/facilities.kml', {
-                camera: this.viewer.scene.camera,
-                canvas: this.viewer.scene.canvas
-            }).then(dataSource => {
-                this.viewer.dataSources.add(dataSource)
-                dataSource.clustering.enabled = true
-                dataSource.clustering.pixelRange = 15
-                dataSource.clustering.minimumClusterSize = 3
-                dataSource.entities.values.forEach(item => {
-                    item.billboard.image = '/image/location.jpg'
-                })
-                this.watchClusterListener(dataSource)
-            })
+            const customdataSource = new Cesium.CustomDataSource('customDataSource')
+            for (let i = 0; i < 500; i++) {
+                let entity = new Cesium.Entity()
+                entity.position = Cesium.Cartesian3.fromDegrees(Cesium.Math.randomBetween(-180, 180), Cesium.Math.randomBetween(-75, 75))
+                entity.billboard = new Cesium.BillboardGraphics()
+                entity.billboard.image = '/image/location.png'
+                entity.billboard.width = 50
+                entity.billboard.height = 50
+                customdataSource.entities.add(entity)
+            }
+            this.viewer.dataSources.add(customdataSource)
+            this.watchClusterListener(customdataSource)
         },
         watchClusterListener(dataSource) {
             if (Cesium.defined(this.removeListener)) {
@@ -76,7 +76,7 @@ export default {
                         cluster.billboard.id = cluster.label.id
                         cluster.billboard.verticalOrigin =
                             Cesium.VerticalOrigin.BOTTOM
-                        cluster.billboard.image = '/image/location.jpg'
+                        cluster.billboard.image = '/image/location.png'
                         cluster.label.text = clusteredEntities.length.toLocaleString()
                     }
                 )

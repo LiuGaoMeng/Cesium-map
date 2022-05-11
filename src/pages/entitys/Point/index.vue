@@ -68,6 +68,9 @@ export default {
             })
             this.viewer.trackedEntity = point
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 

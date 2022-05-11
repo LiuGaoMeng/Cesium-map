@@ -188,6 +188,9 @@ export default {
             })
             this.viewer.trackedEntity = polygon
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 </script>

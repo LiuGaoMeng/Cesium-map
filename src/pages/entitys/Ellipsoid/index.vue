@@ -86,6 +86,9 @@ export default {
 
             this.viewer.trackedEntity = ellipsoid
         }
+    },
+    beforeDestroy() {
+        this.viewer.entities.removeAll()
     }
 }
 
