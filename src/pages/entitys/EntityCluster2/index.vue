@@ -61,7 +61,11 @@ export default {
                 entity.billboard.height = 50
                 customdataSource.entities.add(entity)
             }
+            customdataSource.clustering.enabled = true
+            customdataSource.clustering.pixelRange = 40
+            customdataSource.clustering.minimumClusterSize = 3
             this.viewer.dataSources.add(customdataSource)
+
             this.watchClusterListener(customdataSource)
         },
         watchClusterListener(dataSource) {
@@ -71,13 +75,20 @@ export default {
             } else {
                 this.removeListener = dataSource.clustering.clusterEvent.addEventListener(
                     (clusteredEntities, cluster) => {
-                        cluster.label.show = false
+                        cluster.label.show = true
+
+                        cluster.label.text = clusteredEntities.length.toLocaleString()
+                        cluster.label.font = '20px sans-serif'
+                        cluster.label.fillColor = Cesium.Color.BLACK
+                        cluster.label.pixelOffset = new Cesium.Cartesian2(-5, -0)
+                        cluster.label.eyeOffset = new Cesium.Cartesian3(0, 0, -10000)
                         cluster.billboard.show = true
                         cluster.billboard.id = cluster.label.id
-                        cluster.billboard.verticalOrigin =
-                            Cesium.VerticalOrigin.BOTTOM
+                        // cluster.billboard.verticalOrigin =
+                        //     Cesium.VerticalOrigin.BOTTOM
+                        cluster.billboard.width = 60
+                        cluster.billboard.height = 60
                         cluster.billboard.image = '/image/location.png'
-                        cluster.label.text = clusteredEntities.length.toLocaleString()
                     }
                 )
             }
