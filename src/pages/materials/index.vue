@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="contentDiv">
        <router-view></router-view>
     </div>
 </template>
@@ -14,3 +14,10 @@ export default {
     }
 }
 </script>
+
+<style lang="scss">
+.contentDiv{
+    position: absolute;
+    height: 100%;
+}
+</style>
