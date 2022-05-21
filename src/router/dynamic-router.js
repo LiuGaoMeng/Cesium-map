@@ -21,6 +21,8 @@ const EntityCluster2 = () => import('@/pages/entitys/EntityCluster2')
 const Material = () => import('@/pages/materials')
 
 const Primitive = () => import('@/pages/primitive')
+const DEMO = () => import('@/pages/demos')
+const LightLine = () => import('@/pages/demos/LightLine')
 /* 产品管理 */
 const Goods = () => import('@/pages/goods-manage')
 const GoodsList = () => import('@/pages/goods-manage/goods-list')
@@ -252,6 +254,35 @@ const dynamicRoutes = [{
         //     component: MenuManage,
         //     meta: {
         //         name: '菜单管理',
+        //         icon: 'tree'
+        //     }
+        // }
+    ]
+},
+{
+    path: '/demo',
+    component: DEMO,
+    name: 'demo',
+    meta: {
+        name: '案例',
+        icon: 'user'
+    },
+    children: [
+        {
+            path: 'lightLine',
+            name: 'lightLine',
+            component: LightLine,
+            meta: {
+                name: '流光线',
+                icon: 'table'
+            }
+        }
+        // {
+        //     path: 'classify',
+        //     name: 'goods-classify',
+        //     component: GoodsClassify,
+        //     meta: {
+        //         name: '产品分类',
         //         icon: 'tree'
         //     }
         // }

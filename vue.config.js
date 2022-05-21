@@ -20,6 +20,10 @@ let proxyTarget = proxyTargetMap[process.env.API_TYPE] || proxyTargetMap.prod
 let publicPath = process.env.NODE_ENV === 'production' ? '/' : '/'
 let dllPublishPath = '/vendor'
 module.exports = {
+    configureWebpack: { // webpack 配置
+        devtool: 'source-map'
+    },
+
     publicPath: publicPath,
     outputDir: 'dist',
 
@@ -116,7 +120,7 @@ module.exports = {
                 }
             }
         },
-        before: app => {}
+        before: app => { }
     },
     // eslint-disable-next-line no-dupe-keys
     configureWebpack: config => {
