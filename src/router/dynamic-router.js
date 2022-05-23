@@ -21,6 +21,7 @@ const EntityCluster2 = () => import('@/pages/entitys/EntityCluster2')
 const Material = () => import('@/pages/materials')
 
 const Primitive = () => import('@/pages/primitive')
+const Geometry = () => import('@/pages/primitive/Geometry')
 const DEMO = () => import('@/pages/demos')
 const LightLine = () => import('@/pages/demos/LightLine')
 const WaterPolygon = () => import('@/pages/demos/WaterPolygon')
@@ -231,15 +232,15 @@ const dynamicRoutes = [{
         icon: 'table'
     },
     children: [
-        //     {
-        //     path: 'user',
-        //     name: 'user-manage',
-        //     component: UserManage,
-        //     meta: {
-        //         name: '用户管理',
-        //         icon: 'table'
-        //     }
-        // },
+        {
+            path: 'geometry',
+            name: 'geometry',
+            component: Geometry,
+            meta: {
+                name: '空间',
+                icon: 'table'
+            }
+        }
         // {
         //     path: 'role',
         //     name: 'role-manage',
