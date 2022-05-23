@@ -1,11 +1,13 @@
+import * as Cesium from 'cesium/Cesium'
 // 激光材质类
-function LaserPolylineTrailLinkMaterialProperty(duration, color) {
+function LaserPolylineTrailLinkMaterialProperty(duration, color, length) {
     this._definitionChanged = new Cesium.Event()
     this._color = undefined
     this._colorSubscription = undefined
     this.color = color
     this.duration = duration
     this._time = new Date().getTime()
+    this.length = length
 }
 
 Object.defineProperties(LaserPolylineTrailLinkMaterialProperty.prototype, {
@@ -42,6 +44,7 @@ LaserPolylineTrailLinkMaterialProperty.prototype.getValue = function (
     result.image = Cesium.Material.PolylineTrailLinkImage
     result.time =
         ((new Date().getTime() - this._time) % this.duration) / this.duration
+    result.length = this.length
     return result
 }
 
@@ -55,14 +58,17 @@ LaserPolylineTrailLinkMaterialProperty.prototype.equals = function (other) {
 
 Cesium.LaserPolylineTrailLinkMaterialProperty = LaserPolylineTrailLinkMaterialProperty
 Cesium.Material.PolylineTrailLinkType = 'PolylineTrailLink'
-Cesium.Material.PolylineTrailLinkImage = '/image/light.png'
+Cesium.Material.PolylineTrailLinkImage = '/image/light2.png'
 Cesium.Material.PolylineTrailLinkSource =
-    `czm_material czm_getMaterial(czm_materialInput materialInput)\n\
-   { czm_material material = czm_getDefaultMaterial(materialInput); vec2 st = materialInput.st;\n\
-      vec4 colorImage = texture2D(image, vec2(fract(st.s - time), st.t));\n\
-       material.alpha = colorImage.a * color.a;\n\
-       material.diffuse = (colorImage.rgb + color.rgb) / 2.0;\n\
-       return material;}`
+    `czm_material czm_getMaterial(czm_materialInput materialInput)
+    {
+    czm_material material = czm_getDefaultMaterial(materialInput);
+    vec2 st = materialInput.st;
+    vec4 colorImage = texture2D(image, vec2(fract(st.s - time), st.t));
+        material.alpha = colorImage.a * color.a;
+        material.diffuse = (colorImage.rgb + color.rgb) / 2.0;
+        return material;
+    } `
 Cesium.Material._materialCache.addMaterial(
     Cesium.Material.PolylineTrailLinkType,
     {
@@ -71,7 +77,8 @@ Cesium.Material._materialCache.addMaterial(
             uniforms: {
                 color: new Cesium.Color(1.0, 0.0, 0.0, 0.5),
                 image: Cesium.Material.PolylineTrailLinkImage,
-                time: 20
+                time: 20,
+                length: 10.0
             },
             source: Cesium.Material.PolylineTrailLinkSource
         },

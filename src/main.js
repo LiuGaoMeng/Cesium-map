@@ -10,6 +10,8 @@ import axios from './config/httpConfig'
 import * as globalFilter from './filters/filters'
 import '@/icons'
 import 'cesium/Widgets/widgets.css'
+import '@/lib/line/lightline.js'
+import '@/lib/line/lightline2.js'
 Vue.prototype.$http = axios
 
 for (var key in globalFilter) {

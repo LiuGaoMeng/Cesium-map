@@ -1,7 +1,8 @@
-import Cesium from 'cesium/Cesium'
+import * as Cesium from 'cesium/Cesium'
 
 export class PolylineTrailMaterialProperty {
     constructor(options) {
+        debugger
         options = Cesium.defaultValue(options, Cesium.defaultValue.EMPTY_OBJECT)
 
         this._definitionChanged = new Cesium.Event()
@@ -15,8 +16,8 @@ export class PolylineTrailMaterialProperty {
         this.duration = options.duration
 
         this.trailImage = options.trailImage
-
         this._time = performance.now()
+        this.length = options.length
     }
 }
 
@@ -53,11 +54,12 @@ PolylineTrailMaterialProperty.prototype.getValue = function (time, result) {
 
     result.color = Cesium.Property.getValueOrClonedDefault(this._color, time, Cesium.Color.WHITE, result.color)
 
-    // result.image = Cesium.Material.PolylineTrailImage;
+    // result.image = Cesium.Material.PolylineTrailImage
 
     result.image = this.trailImage
 
     result.time = ((performance.now() - this._time) % this.duration) / this.duration
+    result.length = this.length
 
     return result
 }
@@ -71,25 +73,24 @@ PolylineTrailMaterialProperty.prototype.equals = function (other) {
 }
 
 Cesium.Material.PolylineTrailType = 'PolylineTrail'
-
-Cesium.Material.PolylineTrailImage = '/image/light.png'
+// console.log(Cesium.Material.PolylineTrailImage)
+Cesium.Material.PolylineTrailImage = ''
 
 Cesium.Material.PolylineTrailSource = `czm_material czm_getMaterial(czm_materialInput materialInput)
-{
-czm_material material = czm_getDefaultMaterial(materialInput);
+        {
+        czm_material material = czm_getDefaultMaterial(materialInput);
 
-vec2 st = materialInput.st;
+        vec2 st = materialInput.st;
 
-vec4 colorImage = texture2D(image, vec2(fract(st.s - time), st.t));
+        vec4 colorImage = texture2D(image, vec2(fract(st.s - time)*length, st.t*length));
 
-    material.alpha = colorImage.a * color.a;
+            material.alpha = colorImage.a * color.a;
 
-    material.diffuse = (colorImage.rgb + color.rgb) / 2.0;
+            material.diffuse = (colorImage.rgb + color.rgb) / 2.0;
 
-    return material;
+            return material;
 
-} `
-
+        } `
 Cesium.Material._materialCache.addMaterial(Cesium.Material.PolylineTrailType, {
 
     fabric: {
@@ -98,11 +99,12 @@ Cesium.Material._materialCache.addMaterial(Cesium.Material.PolylineTrailType, {
 
         uniforms: {
 
-            color: new Cesium.Color(1.0, 0.0, 0.0, 0.5),
+            color: new Cesium.Color(1.0, 0.0, 0.0, 1),
 
             image: Cesium.Material.PolylineTrailImage,
 
-            time: 0
+            time: 0,
+            length: 0.0
 
         },
 

@@ -23,6 +23,7 @@ const Material = () => import('@/pages/materials')
 const Primitive = () => import('@/pages/primitive')
 const DEMO = () => import('@/pages/demos')
 const LightLine = () => import('@/pages/demos/LightLine')
+const WaterPolygon = () => import('@/pages/demos/WaterPolygon')
 /* 产品管理 */
 const Goods = () => import('@/pages/goods-manage')
 const GoodsList = () => import('@/pages/goods-manage/goods-list')
@@ -274,6 +275,15 @@ const dynamicRoutes = [{
             component: LightLine,
             meta: {
                 name: '流光线',
+                icon: 'table'
+            }
+        },
+        {
+            path: 'waterPolygon',
+            name: 'waterPolygon',
+            component: WaterPolygon,
+            meta: {
+                name: '水面',
                 icon: 'table'
             }
         }
